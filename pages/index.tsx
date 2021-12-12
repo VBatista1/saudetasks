@@ -5,6 +5,7 @@ import { Menu } from "components/Organisms/Menu";
 import { Navbar } from "components/Organisms/Navbar";
 import { MainContainer, Container } from "styles/home";
 import { Greeting } from "components/Molecules/Greeting";
+import { TaskCardList } from "components/Organisms/TaskCardList";
 
 const Home: NextPage = () => {
   return (
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
         <MainContainer>
         <Navbar />
           <Greeting />
+          <TaskCardList />
           <NewTaskButton />
         </MainContainer>
       </Container>
