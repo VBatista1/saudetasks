@@ -3,9 +3,7 @@ import styled from "styled-components";
 export const MenuItemContainer = styled.button`
   display: flex;
   align-items: center;
-  background: none;
   width: 100%;
-  border: none;
   p {
       font-size: 1.15rem;
     color: var(--white);
@@ -15,7 +13,6 @@ export const MenuItemContainer = styled.button`
   }
 
   :hover {
-      cursor: pointer;
       background-color: var(--light-blue)
   }
 `;
