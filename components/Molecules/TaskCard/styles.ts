@@ -5,14 +5,27 @@ export const TaskCardContainer = styled.div`
   height: 70px;
   max-width: 600px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   border-radius: 10px;
   background: white;
   padding: 10px 20px;
 
+  span {
+    :hover {
+      cursor: pointer;
+    }
+  }
+
   label {
     display: flex;
+  }
+
+  :hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.025);
+    -ms-transform: scale(1.025);
+    transform: scale(1.025);
   }
 `;
 

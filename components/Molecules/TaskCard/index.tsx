@@ -1,25 +1,44 @@
 import { Checkbox } from "components/Atoms/Checkbox";
 import { useState } from "react";
 import { TaskCardContainer, CheckboxWrapper } from "./styles";
+import { ModalTask } from "components/Organisms/ModalTask";
 
-export const TaskCard: React.FC = () => {
-  const [checked, setChecked] = useState(false);
+export interface ITask {
+  due_on: string;
+  id: number;
+  status: string;
+  title: string;
+  user_id: number;
+}
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+interface TaskCardProps {
+  task: ITask;
+}
+
+export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+  const [openModalTask, setOpenModalTask] = useState<boolean>(false);
+
+  const openModal = () => {
+    setOpenModalTask(true);
   };
 
+  const closeModal = () => {
+    setOpenModalTask(false);
+  };
+
+  
+
   return (
-    <TaskCardContainer>
-      <label>
-        <CheckboxWrapper>
-          <Checkbox checked={checked} onChange={handleCheckboxChange} />
-        </CheckboxWrapper>
-        <span>
-          Adsuesco suffragium comptus defleo ipsam statua capillus talis culpa
-          urbs.
-        </span>
-      </label>
-    </TaskCardContainer>
+    <>
+      <TaskCardContainer onClick={openModal}>
+        <label>
+          <CheckboxWrapper>
+            <Checkbox task={task}/>
+          </CheckboxWrapper>
+          <span>{task.title}</span>
+        </label>
+      </TaskCardContainer>
+      <ModalTask open={openModalTask} closeModal={closeModal} variant="edit" task={task}/>
+    </>
   );
 };

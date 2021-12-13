@@ -1,3 +1,7 @@
+import { ITask } from "components/Molecules/TaskCard";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { editTask } from "services/tasks";
 import {
   CheckboxContainer,
   HiddenCheckbox,
@@ -6,14 +10,35 @@ import {
 } from "./styles";
 
 interface CheckboxProps {
-  checked: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  task: ITask;
 }
 
-export const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange }) => {
+export const Checkbox: React.FC<CheckboxProps> = ({task}) => {
+  const [checked, setChecked] = useState(task.status !== 'pending');
+
+  const handleCheckboxChange = async () => {
+    try {
+      await editTask({
+        id: task.id,
+        title: task.title,
+        due_on: task.due_on,
+        status: checked ? 'pending' : 'completed',
+        user_id: task.user_id,
+      });
+      setChecked(!checked);
+    }
+    catch(err: any) {
+      toast.error(err);
+    }
+  };
+
+  const handleOnClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+  }
+
   return (
-    <CheckboxContainer>
-      <HiddenCheckbox checked={checked} type="checkbox" onChange={onChange}/>
+    <CheckboxContainer onClick={handleOnClick}>
+      <HiddenCheckbox checked={checked} type="checkbox" onChange={handleCheckboxChange}/>
       <StyledCheckbox checked={checked}>
         <Icon viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
