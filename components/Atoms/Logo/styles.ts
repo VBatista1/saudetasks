@@ -8,4 +8,8 @@ export const LogoContainer = styled.div`
   span {
     font-weight: 400;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
