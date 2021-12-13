@@ -1,13 +1,30 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { NewTaskButton } from "components/Atoms/NewTaskButton";
+
 import { Menu } from "components/Organisms/Menu";
 import { Navbar } from "components/Organisms/Navbar";
 import { MainContainer, Container } from "styles/home";
-import { Greeting } from "components/Molecules/Greeting";
-import { TaskCardList } from "components/Organisms/TaskCardList";
+import { Home } from "components/Templates/Home";
+import { ITask } from "components/Molecules/TaskCard"
+import { useEffect } from "react";
+import {
+  useAppDispatch,
+} from 'redux/hooks';
+import {
+  addTasks
+} from 'redux/features/tasks/tasksSlice';
 
-const Home: NextPage = () => {
+interface HomePageProps {
+  tasks: ITask[];
+}
+
+const HomePage: NextPage<HomePageProps> = ({ tasks }) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(addTasks(tasks));
+  },[])
+
   return (
     <>
       <Head>
@@ -22,14 +39,18 @@ const Home: NextPage = () => {
       <Container>
         <Menu />
         <MainContainer>
-        <Navbar />
-          <Greeting />
-          <TaskCardList />
-          <NewTaskButton />
+          <Navbar />
+          <Home />
         </MainContainer>
       </Container>
     </>
   );
 };
 
-export default Home;
+export async function getServerSideProps() {
+  const res = await fetch(`https://gorest.co.in/public/v1/users/1436/todos`);
+  const data = await res.json();
+  return { props: { tasks: data.data } };
+}
+
+export default HomePage;
