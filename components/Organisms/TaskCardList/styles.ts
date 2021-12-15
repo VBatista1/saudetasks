@@ -7,4 +7,9 @@ export const TaskCardListContainer = styled.ul`
   li + li {
     margin-top: 20px;
   }
+
+  h2 {
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+  }
 `;
