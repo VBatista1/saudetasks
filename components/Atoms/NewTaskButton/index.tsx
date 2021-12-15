@@ -1,25 +1,23 @@
 import AddIcon from "public/icons/plus_icon.svg";
 import { Button } from "./styles";
-import { ModalTask } from "components/Organisms/ModalTask";
-import { useState } from "react";
+import {
+  useAppDispatch,
+} from 'redux/hooks';
+import { newTask } from "redux/features/modal/modalSlice";
+
 
 export const NewTaskButton: React.FC = () => {
-  const [openModalTask, setOpenModalTask] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-  const openModal = () => {
-    setOpenModalTask(true);
-  };
-
-  const closeModal = () => {
-    setOpenModalTask(false);
+  const handleOpenModal = () => {
+    dispatch(newTask());
   };
 
   return (
     <>
-      <Button onClick={openModal}>
+      <Button onClick={handleOpenModal}>
         <AddIcon />
       </Button>
-      <ModalTask open={openModalTask} closeModal={closeModal} variant="new" />
     </>
   );
 };
