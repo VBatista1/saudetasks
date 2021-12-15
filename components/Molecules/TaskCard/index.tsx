@@ -1,36 +1,23 @@
 import { Checkbox } from "components/Atoms/Checkbox";
-import { useState } from "react";
 import { TaskCardContainer, CheckboxWrapper } from "./styles";
-import { ModalTask } from "components/Organisms/ModalTask";
-
-export interface ITask {
-  due_on: string;
-  id: number;
-  status: string;
-  title: string;
-  user_id: number;
-}
-
+import {
+  useAppDispatch,
+} from 'redux/hooks';
+import { editTask } from "redux/features/modal/modalSlice";
+import { ITask } from "utils/types";
 interface TaskCardProps {
   task: ITask;
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
-  const [openModalTask, setOpenModalTask] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-  const openModal = () => {
-    setOpenModalTask(true);
+  const handleOpenModal = () => {
+    dispatch(editTask({task}));
   };
-
-  const closeModal = () => {
-    setOpenModalTask(false);
-  };
-
-  
 
   return (
-    <>
-      <TaskCardContainer onClick={openModal}>
+      <TaskCardContainer onClick={handleOpenModal}>
         <label>
           <CheckboxWrapper>
             <Checkbox task={task}/>
@@ -38,7 +25,5 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
           <span>{task.title}</span>
         </label>
       </TaskCardContainer>
-      <ModalTask open={openModalTask} closeModal={closeModal} variant="edit" task={task}/>
-    </>
   );
 };
