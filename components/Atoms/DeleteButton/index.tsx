@@ -6,5 +6,5 @@ interface DeleteButtonProps {
 }
 
 export const DeleteButton: React.FC<DeleteButtonProps> = ({onClick}) => {
-  return <DeleteButtonContainer onClick={onClick}><DeleteIcon fill="var(--red)"/></DeleteButtonContainer>;
+  return <DeleteButtonContainer type="button" onClick={onClick}><DeleteIcon fill="var(--red)"/></DeleteButtonContainer>;
 }
