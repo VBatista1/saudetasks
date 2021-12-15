@@ -3,27 +3,26 @@ import Head from "next/head";
 
 import { Menu } from "components/Organisms/Menu";
 import { Navbar } from "components/Organisms/Navbar";
-import { MainContainer, Container } from "styles/home";
+import { Container } from "styles/home";
 import { Home } from "components/Templates/Home";
-import { ITask } from "components/Molecules/TaskCard"
 import { useEffect } from "react";
-import {
-  useAppDispatch,
-} from 'redux/hooks';
-import {
-  addTasks
-} from 'redux/features/tasks/tasksSlice';
+import { useAppDispatch } from "redux/hooks";
+import { addTasksList } from "redux/features/tasks/tasksSlice";
+import { User, ITask } from "utils/types";
+import { addUser } from "redux/features/user/userSlice";
 
 interface HomePageProps {
   tasks: ITask[];
+  user: User;
 }
 
-const HomePage: NextPage<HomePageProps> = ({ tasks }) => {
+const HomePage: NextPage<HomePageProps> = ({ tasks, user }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(addTasks(tasks));
-  },[])
+    dispatch(addTasksList(tasks));
+    dispatch(addUser(user));
+  }, []);
 
   return (
     <>
@@ -38,19 +37,21 @@ const HomePage: NextPage<HomePageProps> = ({ tasks }) => {
 
       <Container>
         <Menu />
-        <MainContainer>
-          <Navbar />
-          <Home />
-        </MainContainer>
+        <Navbar />
+        <Home />
       </Container>
     </>
   );
 };
 
 export async function getServerSideProps() {
-  const res = await fetch(`https://gorest.co.in/public/v1/users/1436/todos`);
-  const data = await res.json();
-  return { props: { tasks: data.data } };
+  const todos = await fetch(`https://gorest.co.in/public/v1/users/1468/todos`);
+  const user = await fetch(`https://gorest.co.in/public/v1/users/1468`);
+
+  const userJson = await user.json();
+  const todosJson = await todos.json();
+
+  return { props: { tasks: todosJson.data, user: userJson.data } };
 }
 
 export default HomePage;
