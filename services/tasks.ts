@@ -1,16 +1,16 @@
-import { ITask } from "components/Molecules/TaskCard";
+import { ITask } from "utils/types";
 import { api } from "./api";
 
 export const getUserTasks = async () => {
   return await api
-    .get(`users/1436/todos`)
+    .get(`users/1468/todos`)
     .then((response: any) => response.data)
     .catch((err) => err);
 };
 
 export const createTask = async (title: string, due_on: string) => {
   return await api
-    .post(`users/1436/todos`, {title, due_on, status: "pending"})
+    .post(`users/1468/todos`, {title, due_on, status: "pending"})
     .then((response: any) => response.data)
     .catch((err) => err);
 };
