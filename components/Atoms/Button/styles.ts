@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { ButtonProps } from './index';
 
-export const ButtonContainer = styled.button`
+export const ButtonContainer = styled.button<ButtonProps>`
   height: 40px;
-  background: var(--dark-blue);
+  background: ${(props: ButtonProps) => props.color ? props.color : 'var(--dark-blue)'};
   width: 110px;
   border-radius: 10px;
-  color: var(--white);
+  color: ${(props: ButtonProps) => props.textColor ? props.textColor : 'var(--white)'};
   font-size: 1.10rem;
   margin: 0 auto;
   margin-top: 10px;
