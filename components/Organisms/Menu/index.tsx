@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MenuContainer, MenuWrapper } from "./styles";
 
 export const Menu: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setOpen(!open);

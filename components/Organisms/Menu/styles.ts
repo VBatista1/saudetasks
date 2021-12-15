@@ -6,6 +6,7 @@ interface MenuProps {
 }
 
 export const MenuContainer = styled.div`
+  grid-area: menu;
   position: relative;
   height: 100%;
   width: fit-content;
@@ -18,8 +19,4 @@ export const MenuWrapper = styled.div`
   height: 100%;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-
-  @media ${device.tablet} {
-    display: none;
-  }
 `;
