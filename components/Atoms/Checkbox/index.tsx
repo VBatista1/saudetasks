@@ -1,4 +1,4 @@
-import { ITask } from "components/Molecules/TaskCard";
+import { ITask } from "utils/types";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { editTask } from "services/tasks";
@@ -14,7 +14,7 @@ interface CheckboxProps {
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({task}) => {
-  const [checked, setChecked] = useState(task.status !== 'pending');
+  const [checked, setChecked] = useState<boolean>(task.status !== 'pending');
 
   const handleCheckboxChange = async () => {
     try {
