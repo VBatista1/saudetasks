@@ -5,6 +5,6 @@ export const Container = styled.div`
   grid-template-areas: "menu navbar" "menu main";
   grid-template-columns: min-content 3fr;
   grid-template-rows: 60px 1fr;
-  height: 100%
+  height: 100%;
   overflow: hidden;
 `;
